@@ -33,7 +33,7 @@ function isBuildEnv() {
 }
 
 function addSourceMaps(config) {
-  config.devtool = isBuildEnv() ? 'source-map' : 'eval-source-map'
+  config.devtool = isBuildEnv() ? 'cheap-module-source-map' : 'cheap-module-eval-source-map'
   return config
 }
 
