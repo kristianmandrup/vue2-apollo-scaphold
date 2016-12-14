@@ -15,9 +15,10 @@
           <login></login>
         </md-tab>
         <md-tab id="register" md-label="Register">
-          <register></register>
+          Register
+          <!-- <register></register> -->
         </md-tab>
-      <md-tabs>
+      </md-tabs>
     </section>
   </nav>
 </template>

@@ -1,12 +1,11 @@
 import VueRouter from 'vue-router'
 
-import App from './components/App/App.vue'
-// import Home from './components/Home/Home';
-// import GraphiQLModule from './components/GraphiQL/GraphiQL';
+import Home from './components/App/Home.vue'
+// import GraphiQL from './components/GraphiQL/GraphiQL';
 
 const routes = [
-  { path: '/', name: 'root', component: App }
-//  { path: '/graphiql', name: 'graphiql', component: GraphiQLModule }
+  { path: '/', name: 'root', component: Home }
+//  { path: '/graphiql', name: 'graphiql', component: GraphiQL }
 ]
 
 const router = new VueRouter({

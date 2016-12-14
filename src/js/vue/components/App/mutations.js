@@ -69,9 +69,7 @@ export const createUser = (ctx) => {
 }
 
 import { default as queries } from './queries'
-
-console.log('queries', queries, gql)
-// Uncaught TypeError: (0 , _graphql2.default) is not a function
+// console.log('queries', queries, gql)
 
 export const LoginWithData = graphql(queries.LoginUserMutation, {
 })

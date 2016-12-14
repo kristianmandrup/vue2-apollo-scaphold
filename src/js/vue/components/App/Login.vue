@@ -1,31 +1,19 @@
 <template>
-  <section @click="open()">
-    <md-dialog :v-show="showModal">
-      <md-dialog-title>
-        <span class="dtitle">Login Here!</span>
-      </md-dialog-title>
-      <md-dialog-content>
-        <div class="label">
-          Email
-        </div>
-        <md-input-container class="usr-input">
-          <md-input type="email" placeholder="Email" @change="handleLoginEmailChange()" />
-        </md-input-container>
-
-        <div class="label">
-          Password
-        </div>
-        <md-input-container class="usr-input">
-          <md-input type="password" placeholder="Password" @change="handleLoginPasswordChange()" />
-        </md-input-container>
-        <div class="errors">{{ errors }}</div>
-      </md-dialog-content>
-      <md-dialog-actions>
-        <md-button class="primary" type="submit" @click="loginUser()">Login</button>
-        <md-button @click="close()">Close</button>
-      </md-dialog-actions>
-    </md-dialog>
-  </section>
+  <md-card>
+    <span class="md-headline">Login Here!</span>
+    <div class="form">
+      <md-input-container>
+        <md-input type="email" placeholder="Email" @change="emailChange()" />
+      </md-input-container>
+      <md-input-container>
+        <md-input id="password" type="password" placeholder="Password" @change="passwordChange()" />
+      </md-input-container>
+      <div class="errors">{{ errors }}</div>
+    </div>
+    <md-bottom-bar>
+      <md-button class="primary" type="submit" @click="loginUser()">Login</button>
+    </md-bottom-bar>
+  </md-card>
 </template>
 
 <script>
@@ -68,10 +56,10 @@ export default {
       this.showModal = true
     },
 
-    handleLoginEmailChange(e) {
+    emailChange(e) {
       this.loginEmail = e.target.value;
     },
-    handleLoginPasswordChange(e) {
+    passwordChange(e) {
       this.loginPassword = e.target.value;
     },
 

@@ -1,32 +1,19 @@
 <template>
-  <section @click="open()">
-    <md-dialog :v-show="showModal">
-      <md-dialog-title>
-        <span class="dtitle">Register Here!</span>
-      </md-dialog-title>
-      <md-dialog-content>
-        <div class="row">
-          <label>
-            Email
-          </label>
-          <div class="control">
-            <input type="email" placeholder="Email" @onChange="handleRegisterEmailChange()" />
-          </div>
-          <label>
-            Password
-          </label>
-          <div class="control">
-            <input type="password" placeholder="Password" @onChange="handleRegisterPasswordChange()" />
-          </div>
-        </div>
-        <div class="errors">{{ errors}}</div>
-      </md-dialog-content>
-      <md-dialog-actions>
-        <md-button class="primary" type="submit" @onClick="registerUser()">Register</md-button>
-        <md-button @click="close()">Close</md-button>
-      </md-dialog-actions>
-    </md-dialog>
-  </section>
+  <md-card>
+    <span class="md-headline">Register Here!</span>
+    <div class="form">
+      <md-input-container>
+        <md-input id="email" type="email" placeholder="Email" @onChange="handleRegisterEmailChange()" />
+      </md-input-container>
+      <md-input-container>
+        <md-input id="password" type="password" placeholder="Password" @change="passwordChange()" />
+      </md-input-container>
+      <div class="errors">{{ errors }}</div>
+    </div>
+    <md-bottom-bar>
+      <md-button class="primary" type="submit" @onClick="registerUser()">Register</md-button>
+    </md-bottom-bar>
+  </md-card>
 </template>
 
 <script>
