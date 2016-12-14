@@ -5,8 +5,7 @@ import App from './components/App/App.vue'
 // import GraphiQLModule from './components/GraphiQL/GraphiQL';
 
 const routes = [
-  { path: '/', name: 'root', component: App }
-//  { path: '/home', name: 'home', component: Home },
+  { path: ['/', '/home'], name: 'root', component: App }
 //  { path: '/graphiql', name: 'graphiql', component: GraphiQLModule }
 ]
 
@@ -16,4 +15,3 @@ const router = new VueRouter({
 })
 
 export default router
-
