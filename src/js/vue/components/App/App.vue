@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-md-theme="'default'">
     <aheader />
     <router-view />
     <afooter />

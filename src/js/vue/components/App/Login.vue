@@ -1,38 +1,31 @@
 <template>
-  <nav-item onClick="open()">
-    Login
-    <modal onShow="showModal()" :v-hide="close">
-      <modal-header>
-        <modal-title>Login Here!</modal-title>
-      </modal-header>
-      <modal-body>
-        <form horizontal>
-          <form-group id="formLoginEmail" ref="formLoginEmail">
-            <div class="label">
-              Email
-            </div>
-            <div class="usr-input">
-              <input type="email" placeholder="Email" @onChange="handleLoginEmailChange()" />
-            </div>
-          </form-group>
+  <section @click="open()">
+    <md-dialog :v-show="showModal">
+      <md-dialog-title>
+        <span class="dtitle">Login Here!</span>
+      </md-dialog-title>
+      <md-dialog-content>
+        <div class="label">
+          Email
+        </div>
+        <md-input-container class="usr-input">
+          <md-input type="email" placeholder="Email" @change="handleLoginEmailChange()" />
+        </md-input-container>
 
-          <form-group ref="formLoginPassword">
-            <div class="label">
-              Password
-            </div>
-            <div class="usr-input">
-              <input type="password" placeholder="Password" @onChange="handleLoginPasswordChange()" />
-            </div>
-          </form-group>
-        </Form>
+        <div class="label">
+          Password
+        </div>
+        <md-input-container class="usr-input">
+          <md-input type="password" placeholder="Password" @change="handleLoginPasswordChange()" />
+        </md-input-container>
         <div class="errors">{{ errors }}</div>
-      </modal-body>
-      <modal-footer>
-        <button class="primary" type="submit" @onClick="loginUser()">Login</button>
-        <button @onClick="close()">Close</button>
-      </modal-footer>
-    </modal>
-  </navItem>
+      </md-dialog-content>
+      <md-dialog-actions>
+        <md-button class="primary" type="submit" @click="loginUser()">Login</button>
+        <md-button @click="close()">Close</button>
+      </md-dialog-actions>
+    </md-dialog>
+  </section>
 </template>
 
 <script>

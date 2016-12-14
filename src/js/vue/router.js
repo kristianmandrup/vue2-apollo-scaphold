@@ -5,7 +5,7 @@ import App from './components/App/App.vue'
 // import GraphiQLModule from './components/GraphiQL/GraphiQL';
 
 const routes = [
-  { path: ['/', '/home'], name: 'root', component: App }
+  { path: '/', name: 'root', component: App }
 //  { path: '/graphiql', name: 'graphiql', component: GraphiQLModule }
 ]
 

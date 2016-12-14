@@ -1,39 +1,32 @@
 <template>
-  <md-tab @click="open()">
-    Register
-    <modal v-show="showModal" v-hide="close">
-      <modal-Header>
-        <modal-title>Register Here!</modal-title>
-      <modal-Header>
-      <modal-body>
-        <form class="horizontal">
-          <div class="row">
-            <form-group ref="formRegisterEmail">
-              <label>
-                Email
-              </label>
-              <div class="control">
-                <input type="email" placeholder="Email" @onChange="handleRegisterEmailChange()" />
-              </div>
-            </form-group>
-            <form-group ref="formRegisterPassword">
-              <label>
-                Password
-              </label>
-              <div class="control">
-                <input type="password" placeholder="Password" @onChange="handleRegisterPasswordChange()" />
-              </div>
-            </form-group>
+  <section @click="open()">
+    <md-dialog :v-show="showModal">
+      <md-dialog-title>
+        <span class="dtitle">Register Here!</span>
+      </md-dialog-title>
+      <md-dialog-content>
+        <div class="row">
+          <label>
+            Email
+          </label>
+          <div class="control">
+            <input type="email" placeholder="Email" @onChange="handleRegisterEmailChange()" />
           </div>
-        </form>
+          <label>
+            Password
+          </label>
+          <div class="control">
+            <input type="password" placeholder="Password" @onChange="handleRegisterPasswordChange()" />
+          </div>
+        </div>
         <div class="errors">{{ errors}}</div>
-      </modal-body>
-      <modal-footer>
+      </md-dialog-content>
+      <md-dialog-actions>
         <md-button class="primary" type="submit" @onClick="registerUser()">Register</md-button>
         <md-button @click="close()">Close</md-button>
-      </modal-footer>
-    </modal>
-  </md-tab>
+      </md-dialog-actions>
+    </md-dialog>
+  </section>
 </template>
 
 <script>

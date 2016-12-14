@@ -7,10 +7,16 @@
     </md-toolbar>
     <section class="right">
       <md-tabs>
-<!--         <md-tab><router-link :to="{ name: 'home' }">Home</router-link></md-tab>
-        <md-tab><router-link :to="{ name: 'graphiql' }">GraphiQL</router-link></md-tab>
- -->        <md-tab><login></login></md-tab>
-        <md-tab><register></register></md-tab>
+        <md-tab id="home" md-label="Home">
+          <router-link :to="{ name: 'root' }"></router-link>
+        </md-tab>
+        <!-- <md-tab><router-link :to="{ name: 'graphiql' }">GraphiQL</router-link></md-tab> -->
+        <md-tab id="login" md-label="Login">
+          <login></login>
+        </md-tab>
+        <md-tab id="register" md-label="Register">
+          <register></register>
+        </md-tab>
       <md-tabs>
     </section>
   </nav>
@@ -34,7 +40,8 @@ export default {
   props: [],
   data () {
     return {
-      showModal: false
+      showModal: false,
+      activeTab: 'home'
     }
   }
 }

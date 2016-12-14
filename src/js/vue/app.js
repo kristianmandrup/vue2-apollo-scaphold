@@ -22,19 +22,13 @@ Vue.use(VueApollo, {
 // use vue-material: https://github.com/marcosmoura/vue-material
 Vue.use(VueMaterial)
 
-import 'vue-material/dist/components/mdCore/index.css' // Required to boot vue material
-import 'vue-material/dist/components/mdButton/index.css'
-import 'vue-material/dist/components/mdBottomBar/index.css'
-import 'vue-material/dist/components/mdTabs/index.css'
-import 'vue-material/dist/components/mdToolbar/index.css'
-
-Vue.use(VueMaterial.mdCore) // Required to boot vue material
-Vue.use(VueMaterial.mdBottomBar)
-Vue.use(VueMaterial.mdTabs)
-Vue.use(VueMaterial.mdToolbar)
-
 // Aplly themes
-// Vue.material.theme.registerAll()
+Vue.material.theme.register('default', {
+  primary: 'indigo',
+  accent: 'pink',
+  warn: 'deep-orange',
+  background: 'grey'
+})
 
 import App from './components/App/App.vue'
 App.router = router
