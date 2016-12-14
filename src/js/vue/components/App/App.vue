@@ -26,6 +26,8 @@ function createNewUsername () {
   return 'new-user'
 }
 
+const log = console.log
+
 export default {
   // register local components
   components: {
@@ -44,6 +46,8 @@ export default {
     this.$nextTick(() => {
       const token = localStorage.getItem('token');
       const userId = localStorage.getItem('userId');
+
+      log('app mounted', token, userId)
 
       // If we are logged in subscribe to the user and render the app.
       // We are not logged in so stop loading and render the landing page.

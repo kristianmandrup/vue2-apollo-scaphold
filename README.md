@@ -224,7 +224,7 @@ Contains an apollo mutation method to perform a `loginWithData`
   methods: {
     login(ctx) {
       return this.$apollo.mutate(mutations.LoginWithData(ctx))
-    },        
+    },
     ...
   }
 ```

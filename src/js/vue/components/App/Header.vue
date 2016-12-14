@@ -22,6 +22,8 @@ import Login from './Login.vue';
 import Register from './Register.vue';
 // import Logout from '../Home/Logout';
 
+const log = console.log
+
 export default {
   // register local components
   components: {

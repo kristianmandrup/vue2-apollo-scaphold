@@ -40,6 +40,12 @@ import config from './../../../config';
 import * as mutations from './mutations'
 import router from '../../router';
 
+const log = console.log
+
+function loginWithData(ctx) {
+  mutations.LoginWithData(ctx)
+}
+
 export default {
   props: [],
   data () {
@@ -56,13 +62,16 @@ export default {
     // pass login ctx:
     // - username, passsord
     login(ctx) {
-      return this.$apollo.mutate(mutations.LoginWithData(ctx))
+      log('login', ctx)
+      return this.$apollo.mutate(loginWithData(ctx))
     },
 
     close() {
+      log('close')
       this.showModal = false
     },
     open() {
+      log('open')
       this.showModal = true
     },
 
@@ -74,16 +83,23 @@ export default {
     },
 
     loginUser() {
+      log('loginUser')
+
       this.login({
         username: this.loginEmail,
         password: this.loginPassword
       }).then((data) => {
-        if (data.errors) {
-          this.errors = data.errors;
+        log('login response', data)
+        const errors = data.errors
+        if (errors) {
+          log('errors', errors)
+          this.errors = errors;
           return
         }
-        localStorage.setItem('token', data.loginUser.token);
-        localStorage.setItem('userId', data.loginUser.id);
+        const loginUser = data.loginUser;
+        log('update localStorage', loginUser)
+        localStorage.setItem('token', loginUser.token);
+        localStorage.setItem('userId', loginUser.id);
         router.push({name: 'home'});
       }).catch((error) => {
         this.errors = [error]
