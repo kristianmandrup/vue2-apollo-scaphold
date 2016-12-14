@@ -43,7 +43,7 @@ import router from '../../router';
 const log = console.log
 
 function loginWithData(ctx) {
-  mutations.LoginWithData(ctx)
+  return mutations.LoginWithData(ctx)
 }
 
 export default {

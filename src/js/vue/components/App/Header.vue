@@ -7,9 +7,9 @@
     </md-toolbar>
     <section class="right">
       <md-tabs>
-        <md-tab><router-link :to="{ name: 'home' }">Home</router-link></md-tab>
+<!--         <md-tab><router-link :to="{ name: 'home' }">Home</router-link></md-tab>
         <md-tab><router-link :to="{ name: 'graphiql' }">GraphiQL</router-link></md-tab>
-        <md-tab><login></login></md-tab>
+ -->        <md-tab><login></login></md-tab>
         <md-tab><register></register></md-tab>
       <md-tabs>
     </section>
@@ -41,7 +41,11 @@ export default {
 </script>
 
 <style>
-navbar {
-  margin-bottom: 0
+.header {
+
+}
+
+.brand {
+
 }
 </style>

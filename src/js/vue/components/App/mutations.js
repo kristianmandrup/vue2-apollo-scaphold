@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import graphql from 'graphql'
+import { graphql } from 'graphql'
 
 // See https://www.npmjs.com/package/graphql
 // graphql(schema, query).then(result => { ... })
@@ -39,8 +39,6 @@ import graphql from 'graphql'
 //   },
 // },
 
-import { default as queries } from './queries'
-
 // See https://github.com/Akryum/vue-apollo#mutations
 export const createUser = (ctx) => {
   return {
@@ -66,9 +64,14 @@ export const createUser = (ctx) => {
     //     id: -1,
     //     label: newTag,
     //   },
-    // },  
+    // },
   }
-}    
+}
+
+import { default as queries } from './queries'
+
+console.log('queries', queries, gql)
+// Uncaught TypeError: (0 , _graphql2.default) is not a function
 
 export const LoginWithData = graphql(queries.LoginUserMutation, {
 })
