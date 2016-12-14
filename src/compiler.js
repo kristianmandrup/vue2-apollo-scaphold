@@ -1,7 +1,7 @@
 import path from 'path'
 import webpack from 'webpack'
 
-module.exports = webpack({
+const config = {
   entry: {
     vue: path.resolve(__dirname, 'js', 'vue', 'app.js')
   },
@@ -26,4 +26,15 @@ module.exports = webpack({
     filename: '[name].app.js',
     path: '/'
   }
-})
+}
+
+function isBuildEnv() {
+  process.env.npm_lifecycle_event === 'build'
+}
+
+function addSourceMaps(config) {
+  config.devtool = isBuildEnv() ? 'source-map' : 'eval-source-map'
+  return config
+}
+
+module.exports = webpack(config)
