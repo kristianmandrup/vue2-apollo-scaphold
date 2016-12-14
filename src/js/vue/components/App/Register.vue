@@ -1,5 +1,5 @@
 <template>
-  <md-tab @onClick="open()">
+  <md-tab @click="open()">
     Register
     <modal v-show="showModal" v-hide="close">
       <modal-Header>
@@ -29,23 +29,24 @@
         <div class="errors">{{ errors}}</div>
       </modal-body>
       <modal-footer>
-        <md-button class="primary" type="submit" @onClick={this.registerUser}>Register</md-button>
-        <md-button @onClick="close">Close</md-button>
+        <md-button class="primary" type="submit" @onClick="registerUser()">Register</md-button>
+        <md-button @click="close()">Close</md-button>
       </modal-footer>
     </modal>
   </md-tab>
-</template>        
+</template>
+
 <script>
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-import config from './../../../config';
-import { * as mutations } from './mutations'
-import router from '../../router';
+// import { graphql } from 'react-apollo'
+// import gql from 'graphql-tag'
+import config from './../../../config'
+import * as mutations from './mutations'
+import router from '../../router'
 
 export default {
   props: [],
   data () {
-    return {  
+    return {
       showModal: false,
       registerEmail: undefined,
       registerPassword: undefined,
@@ -54,18 +55,18 @@ export default {
   },
   methods: {
     // open close modal with registration form
-    close() {
+    close () {
       this.showModal = false
     },
-    open() {
+    open () {
       this.showModal = true
     },
 
-    register (data) { 
-      return this.$apollo.mutate(mutations.registerUser(data)
+    register (data) {
+      return this.$apollo.mutate(mutations.registerUser(data))
     },
 
-    registerUser() {
+    registerUser () {
       // register using Apollo GraphQL mutation on User model in data store
       this.register({
         username: this.registerEmail,
@@ -76,25 +77,26 @@ export default {
           return
         }
         // save token, id in local storage
-        localStorage.setItem('token', data.createUser.token);
-        localStorage.setItem('userId', data.createUser.changedUser.id);
+        localStorage.setItem('token', data.createUser.token)
+        localStorage.setItem('userId', data.createUser.changedUser.id)
 
         // redirect to home
         router.push({name: 'home'});
       }).catch((error) => {
         this.error = error;
-      });
+      })
     },
-    
+
     handleRegisterEmailChange(e) {
-      this.registerEmail = e.target.value;
+      this.registerEmail = e.target.value
     },
     handleRegisterPasswordChange(e) {
-      this.registerPassword = e.target.value;
-    }    
+      this.registerPassword = e.target.value
+    }
   }
 }
 </script>
+
 <style>
   .errors {
     text-align: 'center';

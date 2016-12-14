@@ -1,8 +1,8 @@
 <template>
   <div>
-    <header />
+    <aheader />
     <router-view />
-    <footer />
+    <afooter />
   </div>
 </template>
 
@@ -17,10 +17,10 @@ import router from '../../router';
 import { FragmentDoc } from './queries'
 
 // load components
-import Header from './Header';
-import Footer from './Footer';
+import Header from './Header.vue';
+import Footer from './Footer.vue';
 
-import { * as mutations } from './mutations'
+import * as mutations from './mutations'
 
 function createNewUsername () {
   return 'new-user'
@@ -28,10 +28,10 @@ function createNewUsername () {
 
 export default {
   // register local components
-  components: [
-    'header': Header,
-    'footer': Footer
-  ],
+  components: {
+    'aheader': Header,
+    'afooter': Footer
+  },
   props: [],
   data () {
     return {
@@ -47,7 +47,7 @@ export default {
 
       // If we are logged in subscribe to the user and render the app.
       // We are not logged in so stop loading and render the landing page.
-      return token && userId ? this.subscribeToUser(userId) : this.notLoading()  
+      return token && userId ? this.subscribeToUser(userId) : this.notLoading()
     })
   },
 
@@ -63,12 +63,12 @@ export default {
 
       // Call to the graphql mutation
       this.$apollo.mutate(mutations.createUser({
-        username: this.username, 
+        username: this.username,
         password: this.password
       }))
       .then(data => console.log(data))
       .catch(error => console.error(error))
-    },     
+    },
 
     unauthed(result) {
       return result.errors.reduce((acc, err) => (
@@ -77,7 +77,7 @@ export default {
     },
 
     onSubscribeErrors(result) {
-      const authenticated = !this.unauthed(result)       
+      const authenticated = !this.unauthed(result)
       // ignore errors if already authenticated
       if (authenticated) return
 
@@ -85,9 +85,9 @@ export default {
       // update component state
       this.user = result.data.getUser;
       this.notLoading()
-    }
+    },
 
-    onSubscribeData(result) {
+    onSubscribeData (result) {
       let getUser = result.data.getUser
       localStorage.setItem('currentUsername', getUser.username);
 
@@ -96,10 +96,10 @@ export default {
       this.notLoading()
 
       // redirect to home
-      router.push({name: 'home'});      
+      router.push({name: 'home'});
     },
 
-    subscribeToUser(id) {
+    subscribeToUser (id) {
       const observable = client.watchQuery({
         query: userQuery,
         fragments: createFragment(FragmentDoc),
@@ -113,12 +113,12 @@ export default {
       const subscription = observable.subscribe({
         next(result) {
           let handler = result && result.errors ? this.onSubscribeErrors : this.onSubscribeData
-          handler(result) 
+          handler(result)
         },
         error(error) {
           console.log(`Error subscribing to user: ${error.toString()}`)
           this.notLoading()
-        }, 
+        },
         // Network error, etc.
         complete() {
           console.log(`Subscription complete`)
@@ -126,8 +126,8 @@ export default {
       })
 
       // update component state
-      this.userSubscription = subscription,
+      this.userSubscription = subscription
     }
   }
 }
-<script>
+</script>

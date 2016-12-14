@@ -33,10 +33,11 @@
       </modal-footer>
     </modal>
   </navItem>
-</template>        
+</template>
+
 <script>
 import config from './../../../config';
-import { * as mutations } from './mutations'
+import * as mutations from './mutations'
 import router from '../../router';
 
 export default {
@@ -50,14 +51,14 @@ export default {
     }
   },
 
-  methods: {    
+  methods: {
     // called by loginUser() below
     // pass login ctx:
     // - username, passsord
     login(ctx) {
       return this.$apollo.mutate(mutations.LoginWithData(ctx))
-    },        
-    
+    },
+
     close() {
       this.showModal = false
     },
@@ -91,6 +92,7 @@ export default {
   }
 }
 </script>
+
 <style>
 .errors {
   text-align: 'center';

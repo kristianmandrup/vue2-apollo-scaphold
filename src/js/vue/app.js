@@ -11,8 +11,8 @@ import apollo from '../apollo' // apollo client plugin for vue
 import router from './router'
 
 // https://www.npmjs.com/package/vue-awesome
-// import Icon from 'vue-awesome/components/Icon.vue'
-// import 'vue-awesome/icons/heart'
+import Icon from 'vue-awesome/components/Icon.vue'
+import 'vue-awesome/icons/heart'
 
 // Install the vue-apollo plugin and use the apollo client
 Vue.use(VueApollo, {
@@ -34,16 +34,7 @@ Vue.use(VueMaterial.mdTabs)
 Vue.use(VueMaterial.mdToolbar)
 
 // Aplly themes
-Vue.material.theme.registerAll({
-  default: {
-    primary: 'cyan',
-    accent: 'pink'
-  },
-  phone: {
-    primary: 'indigo',
-    accent: 'pink'
-  }
-})
+// Vue.material.theme.registerAll()
 
 import App from './components/App/App.vue'
 App.router = router

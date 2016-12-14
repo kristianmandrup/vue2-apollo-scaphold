@@ -3,10 +3,12 @@
     <md-bottom-bar-item>Made with <i name='heart'/> from the Scaphold team</md-bottom-bar-item>
   </md-bottom-bar>
 </template>
+
 <script>
 export default {
-};
+}
 </script>
+
 <style>
 .footer {
   text-align: 'center';

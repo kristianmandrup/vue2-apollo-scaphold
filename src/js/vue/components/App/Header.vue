@@ -14,28 +14,30 @@
       <md-tabs>
     </section>
   </nav>
-<template>
+</template>
+
 <script>
 // load components
-import Login from './Login';
-import Register from './Register';
-import Logout from '../Home/Logout';
+import Login from './Login.vue';
+import Register from './Register.vue';
+// import Logout from '../Home/Logout';
 
 export default {
-  // register local components  
-  components: [
+  // register local components
+  components: {
     'login': Login,
-    'register': Register,
-    'logout': Logout
-  ],  
+    'register': Register
+    // 'logout': Logout
+  },
   props: [],
   data () {
     return {
       showModal: false
     }
-  } 
+  }
 }
 </script>
+
 <style>
 navbar {
   margin-bottom: 0
