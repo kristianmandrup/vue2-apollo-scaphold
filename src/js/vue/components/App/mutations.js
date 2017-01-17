@@ -1,4 +1,4 @@
-// import gql from 'graphql-tag'
+import gql from 'graphql-tag'
 import { graphql } from 'graphql'
 
 // See https://www.npmjs.com/package/graphql
@@ -39,8 +39,8 @@ import { graphql } from 'graphql'
 //   },
 // },
 
-const createUserQuery = `
-  mutation CreateUserQuery($user: _CreateUserInput!){
+const createUserQuery = gql `
+  mutation CreateUserQuery($user: CreateUserInput!){
     createUser(input: $user) {
       token
       changedUser {
@@ -80,8 +80,8 @@ export const createUser = (ctx) => {
   }
 }
 
-const LoginUserMutation = `
-  mutation LoginUserMutation($data: _LoginUserInput!) {
+const LoginUserMutation = gql `
+  mutation LoginUserMutation($data: LoginUserInput!) {
     loginUser(input: $data) {
       id,
       token
@@ -92,8 +92,8 @@ const LoginUserMutation = `
 export const LoginWithData = graphql(LoginUserMutation, {
 })
 
-const CreateUserMutation = `
-  mutation CreateUserMutation($data: _CreateUserInput!) {
+const CreateUserMutation = gql `
+  mutation CreateUserMutation($data: CreateUserInput!) {
     createUser (input: $data) {
       token
       changedUser {
@@ -103,6 +103,7 @@ const CreateUserMutation = `
     }
   }
 `
+
 
 export const RegisterWithData = graphql(CreateUserMutation, {
 
