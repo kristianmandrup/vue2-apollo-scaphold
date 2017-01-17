@@ -37,7 +37,9 @@ export default {
       errors: undefined
     }
   },
-
+  apollo: {
+    // apollo queries/mutations here
+  },
   methods: {
     // called by loginUser() below
     // pass login ctx:

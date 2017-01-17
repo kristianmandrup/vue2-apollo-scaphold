@@ -35,6 +35,11 @@ export default {
       errors: undefined
     }
   },
+  apollo: {
+    // apollo queries/mutations here
+
+
+  },
   methods: {
     // open close modal with registration form
     close () {

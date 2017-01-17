@@ -1,5 +1,4 @@
 import gql from 'graphql-tag'
-import { graphql } from 'graphql'
 
 // See https://www.npmjs.com/package/graphql
 // graphql(schema, query).then(result => { ... })
@@ -80,7 +79,7 @@ export const createUser = (ctx) => {
   }
 }
 
-const LoginUserMutation = gql `
+export const LoginUserMutation = gql `
   mutation LoginUserMutation($data: LoginUserInput!) {
     loginUser(input: $data) {
       id,
@@ -89,10 +88,7 @@ const LoginUserMutation = gql `
   }
 `
 
-export const LoginWithData = graphql(LoginUserMutation, {
-})
-
-const CreateUserMutation = gql `
+export const CreateUserMutation = gql `
   mutation CreateUserMutation($data: CreateUserInput!) {
     createUser (input: $data) {
       token
@@ -103,8 +99,3 @@ const CreateUserMutation = gql `
     }
   }
 `
-
-
-export const RegisterWithData = graphql(CreateUserMutation, {
-
-})

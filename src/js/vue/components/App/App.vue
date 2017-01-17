@@ -7,20 +7,18 @@
 </template>
 
 <script>
-// import { graphql } from 'vue-apollo';  ???
-
 import client from '../../../apollo';
 import { createFragment } from 'apollo-client';
 import config from '../../../config';
 import router from '../../router';
 
-// import { FragmentDoc, userQuery } from './queries'
+import { FragmentDoc, userQuery } from './queries'
 
 // load components
 import Header from './Header.vue';
 import Footer from './Footer.vue';
 
-// import * as mutations from './mutations'
+import * as mutations from './mutations'
 
 function createNewUsername () {
   return 'new-user'
@@ -35,6 +33,15 @@ export default {
     'afooter': Footer
   },
   props: [],
+
+  // access queries
+  // this.$apollo.queries.<name>
+  apollo: {
+    // apollo queries/mutations here
+    subscribe: {
+      // subscriptions here (see below)
+    }
+  },
   data () {
     return {
       loading: true,
@@ -51,7 +58,7 @@ export default {
 
       // If we are logged in subscribe to the user and render the app.
       // We are not logged in so stop loading and render the landing page.
-      // return token && userId ? this.subscribeToUser(userId) : this.notLoading()
+      return token && userId ? this.subscribeToUser(userId) : this.notLoading()
     })
   },
 
@@ -64,15 +71,15 @@ export default {
       // We save the user input in case of an error
       // const newUser = this.newUser;
       // We clear it early to give the UI a snappy feel
-      // this.newUser = '';
+      this.newUser = '';
 
       // Call to the graphql mutation
-      // this.$apollo.mutate(mutations.createUser({
-      //   username: this.username,
-      //   password: this.password
-      // }))
-      // .then(data => console.log(data))
-      // .catch(error => console.error(error))
+      this.$apollo.mutate(mutations.createUser({
+        username: this.username,
+        password: this.password
+      }))
+      .then(data => console.log(data))
+      .catch(error => console.error(error))
     },
 
     unauthed(result) {
@@ -106,33 +113,33 @@ export default {
 
     subscribeToUser (id) {
       log('subscribeToUser: TODO', id)
-      // const observable = client.watchQuery({
-      //   query: userQuery,
-      //   fragments: createFragment(FragmentDoc),
-      //   pollInterval: 60000,
-      //   forceFetch: true,
-      //   variables: {
-      //     id,
-      //   },
-      // })
+      const observable = client.watchQuery({
+        query: userQuery,
+        fragments: createFragment(FragmentDoc),
+        pollInterval: 60000,
+        forceFetch: true,
+        variables: {
+          id,
+        },
+      })
 
-      // const subscription = observable.subscribe({
-      //   next(result) {
-      //     let handler = result && result.errors ? this.onSubscribeErrors : this.onSubscribeData
-      //     handler(result)
-      //   },
-      //   error(error) {
-      //     console.log(`Error subscribing to user: ${error.toString()}`)
-      //     this.notLoading()
-      //   },
-      //   // Network error, etc.
-      //   complete() {
-      //     console.log(`Subscription complete`)
-      //   }
-      // })
+      const subscription = observable.subscribe({
+        next(result) {
+          let handler = result && result.errors ? this.onSubscribeErrors : this.onSubscribeData
+          handler(result)
+        },
+        error(error) {
+          console.log(`Error subscribing to user: ${error.toString()}`)
+          this.notLoading()
+        },
+        // Network error, etc.
+        complete() {
+          console.log(`Subscription complete`)
+        }
+      })
 
-      // // update component state
-      // this.userSubscription = subscription
+      // update component state
+      this.userSubscription = subscription
     }
   }
 }
