@@ -1,6 +1,6 @@
 <template>
   <md-bottom-bar>
-    <md-bottom-bar-item>Made with <i name='heart'/> from the Scaphold team</md-bottom-bar-item>
+    <md-bottom-bar-item>Made with LUV from the Scaphold team</md-bottom-bar-item>
   </md-bottom-bar>
 </template>
 

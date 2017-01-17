@@ -11,7 +11,7 @@
       <div class="errors">{{ errors }}</div>
     </div>
     <md-bottom-bar>
-      <md-button class="primary" type="submit" @onClick="registerUser()">Register</md-button>
+      <md-button class="primary" type="submit" @click="registerUser()">Register</md-button>
     </md-bottom-bar>
   </md-card>
 </template>
