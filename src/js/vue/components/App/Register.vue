@@ -23,6 +23,8 @@ import config from './../../../config'
 import * as mutations from './mutations'
 import router from '../../router'
 
+const log = console.log
+
 export default {
   props: [],
   data () {
@@ -43,15 +45,18 @@ export default {
     },
 
     register (data) {
+      log('register', data, this.$apollo)
       return this.$apollo.mutate(mutations.registerUser(data))
     },
 
     registerUser () {
+      log('registerUser')
       // register using Apollo GraphQL mutation on User model in data store
       this.register({
         username: this.registerEmail,
         password: this.registerPassword
       }).then((data) => {
+        log('success', data)
         if (data.errors) {
           this.error = data.errors
           return
@@ -63,6 +68,7 @@ export default {
         // redirect to home
         router.push({name: 'home'});
       }).catch((error) => {
+        log('error', error)
         this.error = error;
       })
     },
