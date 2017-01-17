@@ -15,44 +15,7 @@ const userQuery = gql`
   }
 `
 
-const createUserQuery = gql `
-  mutation CreateUserQuery($user: _CreateUserInput!){
-    createUser(input: $user) {
-      token
-      changedUser {
-        id
-        username
-      }
-    }
-  }
-`
-
-const LoginUserMutation = gql `
-  mutation LoginUserMutation($data: _LoginUserInput!) {
-    loginUser(input: $data) {
-      id,
-      token
-    }
-  }
-`
-
-const CreateUserMutation = gql `
-  mutation CreateUserMutation($data: _CreateUserInput!) {
-    createUser (input: $data) {
-      token
-      changedUser {
-        id
-        username
-      }
-    }
-  }
-`
-
 export default {
   FragmentDoc,
-  userQuery,
-  createUserQuery,
-
-  CreateUserMutation,
-  LoginUserMutation
+  userQuery
 }

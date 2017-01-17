@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+// import gql from 'graphql-tag'
 import { graphql } from 'graphql'
 
 // See https://www.npmjs.com/package/graphql
@@ -39,10 +39,22 @@ import { graphql } from 'graphql'
 //   },
 // },
 
+const createUserQuery = `
+  mutation CreateUserQuery($user: _CreateUserInput!){
+    createUser(input: $user) {
+      token
+      changedUser {
+        id
+        username
+      }
+    }
+  }
+`
+
 // See https://github.com/Akryum/vue-apollo#mutations
 export const createUser = (ctx) => {
   return {
-    query: gql(queries.createUserQuery),
+    query: createUserQuery,
     variables: {
       user: {
         username: ctx.username,
@@ -68,12 +80,30 @@ export const createUser = (ctx) => {
   }
 }
 
-import { default as queries } from './queries'
-// console.log('queries', queries, gql)
+const LoginUserMutation = `
+  mutation LoginUserMutation($data: _LoginUserInput!) {
+    loginUser(input: $data) {
+      id,
+      token
+    }
+  }
+`
 
-export const LoginWithData = graphql(queries.LoginUserMutation, {
+export const LoginWithData = graphql(LoginUserMutation, {
 })
 
-export const RegisterWithData = graphql(queries.CreateUserMutation, {
+const CreateUserMutation = `
+  mutation CreateUserMutation($data: _CreateUserInput!) {
+    createUser (input: $data) {
+      token
+      changedUser {
+        id
+        username
+      }
+    }
+  }
+`
+
+export const RegisterWithData = graphql(CreateUserMutation, {
 
 })
