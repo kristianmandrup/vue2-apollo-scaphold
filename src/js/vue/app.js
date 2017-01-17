@@ -1,8 +1,7 @@
-import 'babel-polyfill'
+// import 'babel-polyfill'
 import Vue from 'vue'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
-// import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import VueApollo from 'vue-apollo'
 import Router from 'vue-router'
 Vue.use(Router)

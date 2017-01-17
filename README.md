@@ -1,9 +1,9 @@
-# React/Vue2 Apollo boilerplate
+# Vue2 Apollo boilerplate
+
+Based on [React apollo starter kit](https://github.com/scaphold-io/react-apollo-starter-kit)
 
 Fork this boilerplate code to get started with GraphQL, and Apollo with either:
-- React : `localhost:3001/react.html`
-- Vue2 : `localhost:3001/vue2.html`
-  
+
 **Quickstart:**
 
 1) Go to Scaphold.io (https://scaphold.io).
@@ -16,6 +16,7 @@ Fork this boilerplate code to get started with GraphQL, and Apollo with either:
 
 4) Run with: ```npm start```
 
+Open browser at: `localhost:3001`
 
 **Deployment:**
 
@@ -29,14 +30,7 @@ Fork this boilerplate code to get started with GraphQL, and Apollo with either:
 - [scaphold.io quickstart](https://scaphold.io/docs/#quick-start-tutorial)
 - [scaphold.io slack channel](https://scaphold.slack.com)
 
-## Status
-
-- React *working*
 - Vue 2 *Work in progress (WIP)*
-
-### React
-
-Works out of the box. Source code can be found in `src/js/react` folder
 
 ### Vue2
 
@@ -71,9 +65,9 @@ The main points of interest are the `vue-apollo` integrations and GraphQL querie
 
 *Extra tools*
 - [optics analytics](http://www.apollodata.com/optics)
- 
 
-The `vue-apollo` author recommends defining the apollo queries directly on the component using the special `apollo` key: 
+
+The `vue-apollo` author recommends defining the apollo queries directly on the component using the special `apollo` key:
 
 ```js
   // Apollo GraphQL
@@ -89,7 +83,7 @@ The `vue-apollo` author recommends defining the apollo queries directly on the c
       loadingKey: 'loading',
     },
   },
-```  
+```
 
 Here is a good mutation example:
 
@@ -119,11 +113,11 @@ export default {
 };
 ```
 
-Please refactor the current Vue2 components to follow best practices and work correctly! 
+Please refactor the current Vue2 components to follow best practices and work correctly!
 
-Also have a look at: [vue-apollo: hello world example](https://github.com/Akryum/frontpage-vue-app) 
+Also have a look at: [vue-apollo: hello world example](https://github.com/Akryum/frontpage-vue-app)
 
-#### Apollo GraphQL mutations 
+#### Apollo GraphQL mutations
 
 All the GraphQL queries can be found in `queries.js` under `src/vue/components/App`
 
@@ -144,14 +138,14 @@ Takes an object with `username` and `password`
 
 Folder: `src/vue/components/App`
 
-In `App.vue` we have a method `createUser()` which I'm not sure how it fits in... but this is the method used to make a 
-mutation on the GraphQL backend at [scaphold.io](https://scaphold.io) to actually create a `User` object in the data store [RethinkDB](https://www.rethinkdb.com/).  
+In `App.vue` we have a method `createUser()` which I'm not sure how it fits in... but this is the method used to make a
+mutation on the GraphQL backend at [scaphold.io](https://scaphold.io) to actually create a `User` object in the data store [RethinkDB](https://www.rethinkdb.com/).
 
 ```js
 methods: {
   createUser() {
     this.$apollo.mutate(mutations.createUser({
-      username: this.username, 
+      username: this.username,
       password: this.password
     }))
 ```
@@ -160,7 +154,7 @@ methods: {
 
 There is also a `subscribeToUser` method used to subscribe to new users (via RethinkDB changefeed)
 
-    "RethinkDB pushes JSON to your apps in realtime."  
+    "RethinkDB pushes JSON to your apps in realtime."
 
 Currently it polls every 60000 milliseconds (ie. every minute: `pollInterval: 60000`)
 
@@ -191,7 +185,7 @@ subscribeToUser(id) {
       // redirect to home
       router.push({name: 'home'});
     }
-  })      
+  })
 }
 ```
 
@@ -210,17 +204,11 @@ Contains the following data, bound to the form dialog.
 }
 ```
 
-```js
-
-
-```
-
-
 #### Login user component
 
 Contains an apollo mutation method to perform a `loginWithData`
 
-```
+```js
   methods: {
     login(ctx) {
       return this.$apollo.mutate(mutations.LoginWithData(ctx))
@@ -230,9 +218,9 @@ Contains an apollo mutation method to perform a `loginWithData`
 ```
 
 The method `loginUser` executes `login`, passing `username` and `password`.
-On login success (ie. no `errors` in returned `data`), it stores `token` and `id` in `localStorage` then redirects to `home`. 
+On login success (ie. no `errors` in returned `data`), it stores `token` and `id` in `localStorage` then redirects to `home`.
 
-```
+```js
 loginUser() {
   this.login({
     username: this.loginEmail,
@@ -246,4 +234,4 @@ loginUser() {
 
 ## License
 
-For you pleasure ;) 
+For you pleasure ;)
