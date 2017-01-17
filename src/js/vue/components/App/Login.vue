@@ -18,14 +18,14 @@
 
 <script>
 import config from './../../../config'
-// import * as mutations from './mutations'
+import * as mutations from './mutations'
 import router from '../../router'
 
 const log = console.log
 
-// function loginWithData(ctx) {
-//   return mutations.LoginWithData(ctx)
-// }
+function loginWithData(ctx) {
+  return mutations.LoginWithData(ctx)
+}
 
 export default {
   props: [],
@@ -46,7 +46,7 @@ export default {
     // - username, passsord
     login(ctx) {
       log('login', ctx)
-      // return this.$apollo.mutate(loginWithData(ctx))
+      return this.$apollo.mutate(loginWithData(ctx))
     },
 
     close() {
