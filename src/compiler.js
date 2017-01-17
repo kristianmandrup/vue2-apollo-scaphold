@@ -1,6 +1,7 @@
 import path from 'path'
 import webpack from 'webpack'
 
+// webpack 1.14 - old style!
 const config = {
   entry: {
     vue: path.resolve(__dirname, 'js', 'vue', 'app.js')
