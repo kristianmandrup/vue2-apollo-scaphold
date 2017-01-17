@@ -14,7 +14,7 @@ import { createFragment } from 'apollo-client';
 import config from '../../../config';
 import router from '../../router';
 
-import { FragmentDoc } from './queries'
+import { FragmentDoc, userQuery } from './queries'
 
 // load components
 import Header from './Header.vue';

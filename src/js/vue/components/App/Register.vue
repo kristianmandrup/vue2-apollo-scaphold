@@ -20,7 +20,7 @@
 // import { graphql } from 'react-apollo'
 // import gql from 'graphql-tag'
 import config from './../../../config'
-import * as mutations from './mutations'
+// import * as mutations from './mutations'
 import router from '../../router'
 
 const log = console.log
@@ -46,7 +46,7 @@ export default {
 
     register (data) {
       log('register', data, this.$apollo)
-      return this.$apollo.mutate(mutations.registerUser(data))
+      // return this.$apollo.mutate(mutations.registerUser(data))
     },
 
     registerUser () {
