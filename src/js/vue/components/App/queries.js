@@ -1,11 +1,11 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 const FragmentDoc = gql`
 fragment UserFragment on User {
   id
   username
 }
-`;
+`
 
 const userQuery = gql`
   query GetUser($id: ID!) {
@@ -13,7 +13,7 @@ const userQuery = gql`
       ...UserFragment
     }
   }
-`;
+`
 
 const createUserQuery = gql `
   mutation CreateUserQuery($user: _CreateUserInput!){
@@ -25,7 +25,7 @@ const createUserQuery = gql `
       }
     }
   }
-`;
+`
 
 const LoginUserMutation = gql `
   mutation LoginUserMutation($data: _LoginUserInput!) {
@@ -34,7 +34,7 @@ const LoginUserMutation = gql `
       token
     }
   }
-`;
+`
 
 const CreateUserMutation = gql `
   mutation CreateUserMutation($data: _CreateUserInput!) {
@@ -46,7 +46,7 @@ const CreateUserMutation = gql `
       }
     }
   }
-`;
+`
 
 export default {
   FragmentDoc,

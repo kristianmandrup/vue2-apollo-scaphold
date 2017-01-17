@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import config from './../../../config';
+import config from './../../../config'
 import * as mutations from './mutations'
-import router from '../../router';
+import router from '../../router'
 
 const log = console.log
 
@@ -57,10 +57,10 @@ export default {
     },
 
     emailChange(e) {
-      this.loginEmail = e.target.value;
+      this.loginEmail = e.target.value
     },
     passwordChange(e) {
-      this.loginPassword = e.target.value;
+      this.loginPassword = e.target.value
     },
 
     loginUser() {
@@ -79,9 +79,9 @@ export default {
         }
         const loginUser = data.loginUser;
         log('update localStorage', loginUser)
-        localStorage.setItem('token', loginUser.token);
-        localStorage.setItem('userId', loginUser.id);
-        router.push({name: 'home'});
+        localStorage.setItem('token', loginUser.token)
+        localStorage.setItem('userId', loginUser.id)
+        router.push({name: 'home'})
       }).catch((error) => {
         this.errors = [error]
       });

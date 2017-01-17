@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 import { graphql } from 'graphql'
 
 // See https://www.npmjs.com/package/graphql
@@ -53,7 +53,7 @@ export const createUser = (ctx) => {
       createUser: (previousQueryResult, { mutationResult }) => {
         return mutationResult
       }
-    },
+    }
     // Optimistic UI
     // Will be treated as a 'fake' result as soon as the request is made
     // so that the UI can react quickly and the user be happy
@@ -74,8 +74,6 @@ import { default as queries } from './queries'
 export const LoginWithData = graphql(queries.LoginUserMutation, {
 })
 
-
 export const RegisterWithData = graphql(queries.CreateUserMutation, {
 
 })
-
