@@ -3,7 +3,7 @@
     <span class="md-headline">Register Here!</span>
     <div class="form">
       <md-input-container>
-        <md-input id="email" type="email" placeholder="Email" @onChange="handleRegisterEmailChange()" />
+        <md-input id="email" type="email" placeholder="Email" @change="handleRegisterEmailChange()" />
       </md-input-container>
       <md-input-container>
         <md-input id="password" type="password" placeholder="Password" @change="passwordChange()" />
@@ -17,13 +17,23 @@
 </template>
 
 <script>
-// import { graphql } from 'react-apollo'
-// import gql from 'graphql-tag'
+import gql from 'graphql-tag'
 import config from './../../../config'
-// import * as mutations from './mutations'
 import router from '../../router'
 
 const log = console.log
+
+const createUserMutation = gql `
+  mutation CreateUserMutation($data: CreateUserInput!) {
+    createUser (input: $data) {
+      token
+      changedUser {
+        id
+        username
+      }
+    }
+  }
+`
 
 export default {
   props: [],
@@ -36,9 +46,7 @@ export default {
     }
   },
   apollo: {
-    // apollo queries/mutations here
-
-
+    // apollo queries and subscriptions here
   },
   methods: {
     // open close modal with registration form
@@ -49,9 +57,16 @@ export default {
       this.showModal = true
     },
 
-    register (data) {
-      log('register', data, this.$apollo)
-      // return this.$apollo.mutate(mutations.registerUser(data))
+    register (userData) {
+      log('register', userData, this.$apollo)
+
+      const mutationQL = {
+        mutation: createUserMutation,
+        variables: userData
+      }
+      log('mutationQL', mutationQL)
+
+      return this.$apollo.mutate(mutationQL)
     },
 
     registerUser () {
@@ -78,10 +93,12 @@ export default {
       })
     },
 
-    handleRegisterEmailChange(e) {
+    emailChanged(e) {
+      log('emailChanged', e)
       this.registerEmail = e.target.value
     },
-    handleRegisterPasswordChange(e) {
+    passwordChanged(e) {
+      log('passwordChanged', e)
       this.registerPassword = e.target.value
     }
   }

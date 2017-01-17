@@ -17,15 +17,20 @@
 </template>
 
 <script>
+import gql from 'graphql-tag'
 import config from './../../../config'
-import * as mutations from './mutations'
 import router from '../../router'
 
 const log = console.log
 
-function loginWithData(ctx) {
-  return mutations.LoginWithData(ctx)
-}
+const loginUserMutation = gql `
+  mutation LoginUserMutation($data: LoginUserInput!) {
+    loginUser(input: $data) {
+      id,
+      token
+    }
+  }
+`
 
 export default {
   props: [],
@@ -46,7 +51,14 @@ export default {
     // - username, passsord
     login(ctx) {
       log('login', ctx)
-      return this.$apollo.mutate(loginWithData(ctx))
+
+      const mutationQL = {
+        mutation: loginUserMutation,
+        variables: ctx
+      }
+      log('mutationQL', mutationQL)
+
+      return this.$apollo.mutate(mutationQL)
     },
 
     close() {

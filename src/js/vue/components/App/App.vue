@@ -7,24 +7,76 @@
 </template>
 
 <script>
+import gql from 'graphql-tag'
 import client from '../../../apollo';
 import { createFragment } from 'apollo-client';
 import config from '../../../config';
 import router from '../../router';
 
-import { FragmentDoc, userQuery } from './queries'
+import gql from 'graphql-tag'
+
+const FragmentDoc = gql`
+fragment UserFragment on User {
+  id
+  username
+}
+`
+
+const userQuery = gql`
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      ...UserFragment
+    }
+  }
+`
 
 // load components
 import Header from './Header.vue';
 import Footer from './Footer.vue';
-
-import * as mutations from './mutations'
 
 function createNewUsername () {
   return 'new-user'
 }
 
 const log = console.log
+
+const createUserQuery = gql `
+  mutation CreateUserQuery($user: CreateUserInput!){
+    createUser(input: $user) {
+      token
+      changedUser {
+        id
+        username
+      }
+    }
+  }
+`
+
+// See https://github.com/Akryum/vue-apollo#mutations
+const createUserQL = (userData) => {
+  return {
+    mutation: createUserQuery,
+    variables: {
+      user: userData
+    },
+    updateQueries: {
+      createUser: (previousQueryResult, { mutationResult }) => {
+        return mutationResult
+      }
+    },
+    // Optimistic UI
+    // Will be treated as a 'fake' result as soon as the request is made
+    // so that the UI can react quickly and the user be happy
+    optimisticResponse: {
+      __typename: 'Mutation',
+      addTag: {
+        __typename: 'Tag',
+        id: -1,
+        label: newTag,
+      },
+    }
+  }
+}
 
 export default {
   // register local components
@@ -67,17 +119,21 @@ export default {
       this.loading = false
     },
     createUser() {
-      log('create User: TODO')
+      log('create User')
       // We save the user input in case of an error
       // const newUser = this.newUser;
       // We clear it early to give the UI a snappy feel
       this.newUser = '';
 
-      // Call to the graphql mutation
-      this.$apollo.mutate(mutations.createUser({
+      const mutationQL = createUserQL({
         username: this.username,
         password: this.password
-      }))
+      })
+
+      log('mutationQL', mutationQL)
+
+      // Call to the graphql mutation
+      this.$apollo.mutate(mutationQL)
       .then(data => console.log(data))
       .catch(error => console.error(error))
     },
@@ -112,7 +168,7 @@ export default {
     },
 
     subscribeToUser (id) {
-      log('subscribeToUser: TODO', id)
+      log('subscribeToUser:', id)
       const observable = client.watchQuery({
         query: userQuery,
         fragments: createFragment(FragmentDoc),
