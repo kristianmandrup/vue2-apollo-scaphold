@@ -17,8 +17,6 @@ Vue.use(Router)
 // use vue-material: https://github.com/marcosmoura/vue-material
 Vue.use(VueMaterial)
 Vue.material.registerTheme('default', {
-  primary: 'cyan',
-  accent: 'pink'
 })
 
 Vue.material.setCurrentTheme('default')

@@ -1,9 +1,11 @@
 <template>
   <nav class="top-bar">
     <md-toolbar class="header">
-      <md-button class="brand">
-        <router-link :to="{ name: 'root' }">Scaphold</router-link>
-      </md-button>
+      <div class="md-toolbar-container">
+        <md-button class="brand">
+          <router-link :to="{ name: 'root' }">Scaphold</router-link>
+        </md-button>
+      </div>
     </md-toolbar>
     <section class="right">
       <md-tabs>
