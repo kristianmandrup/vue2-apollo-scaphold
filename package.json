@@ -11,7 +11,7 @@
     "buildw": "cp src/index.html lib/ && babel src --out-dir lib -w --sourceRoot src"
   },
   "dependencies": {
-    "apollo-client": "^0.4.11",
+    "apollo-client": "^0.7.3",
     "babel-polyfill": "6.7.4",
     "chart.js": "^1.1.1",
     "classnames": "2.2.4",

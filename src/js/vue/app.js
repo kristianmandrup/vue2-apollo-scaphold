@@ -1,4 +1,3 @@
-// import 'babel-polyfill'
 import Vue from 'vue'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
@@ -10,23 +9,19 @@ import apollo from '../apollo' // apollo client plugin for vue
 import router from './router'
 
 // https://www.npmjs.com/package/vue-awesome
-import Icon from 'vue-awesome/components/Icon.vue'
-import 'vue-awesome/icons/heart'
+
+// use vue-material: https://github.com/marcosmoura/vue-material
+Vue.use(VueMaterial)
+Vue.material.registerTheme('default', {
+  primary: 'cyan',
+  accent: 'pink'
+})
+
+Vue.material.setCurrentTheme('default')
 
 // Install the vue-apollo plugin and use the apollo client
 Vue.use(VueApollo, {
   apollo
-})
-
-// use vue-material: https://github.com/marcosmoura/vue-material
-Vue.use(VueMaterial)
-
-// Aplly themes
-Vue.material.theme.register('default', {
-  primary: 'indigo',
-  accent: 'pink',
-  warn: 'deep-orange',
-  background: 'grey'
 })
 
 import App from './components/App/App.vue'
