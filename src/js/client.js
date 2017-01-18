@@ -1,5 +1,5 @@
 import ApolloClient, { createNetworkInterface } from 'apollo-client'
-import config from './config'
+import config from '../config/client'
 
 const networkInterface = createNetworkInterface({uri: config.scapholdUrl})
 networkInterface.use([{

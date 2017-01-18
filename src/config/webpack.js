@@ -10,10 +10,9 @@ import webpack from 'webpack'
 //   return config
 // }
 
-// webpack 1.14 - old style!
 const config = {
   entry: {
-    vue: path.resolve(__dirname, 'js', 'vue', 'app.js')
+    vue: path.resolve(__dirname, '../js', 'vue', 'app.js')
   },
   module: {
     rules: [

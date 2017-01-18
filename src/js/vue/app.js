@@ -5,14 +5,10 @@ import VueApollo from 'vue-apollo'
 // https://www.npmjs.com/package/vue-awesome
 // import Icon from 'vue-awesome/components/Icon.vue'
 // import 'vue-awesome/icons/heart'
-import Router from 'vue-router'
-import apollo from '../apollo' // apollo client plugin for vue
-import router from './router'
-import App from './components/App/App.vue'
+import client from '../client' // apollo client plugin for vue
+import App from './components/App.vue'
 
 Vue.config.debug = true
-
-Vue.use(Router)
 
 // use vue-material: https://github.com/marcosmoura/vue-material
 Vue.use(VueMaterial)
@@ -23,11 +19,10 @@ Vue.material.setCurrentTheme('default')
 
 // Install the vue-apollo plugin and use the apollo client
 Vue.use(VueApollo, {
-  apollo
+  client
 })
 
 new Vue({
-  router,
   ...App
 }).$mount('#app')
 

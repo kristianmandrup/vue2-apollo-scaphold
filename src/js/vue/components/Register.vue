@@ -3,12 +3,16 @@
     <span class="md-headline">Register Here!</span>
     <div class="form">
       <md-input-container>
-        <md-input id="email" type="email" placeholder="Email" @change="handleRegisterEmailChange()" />
+        <md-input id="email" type="email" placeholder="Email" v-model="email" />
       </md-input-container>
       <md-input-container>
-        <md-input id="password" type="password" placeholder="Password" @change="passwordChange()" />
+        <md-input id="password" type="password" placeholder="Password" v-model="password" />
       </md-input-container>
-      <div class="errors">{{ errors }}</div>
+      <div class="errors">
+        <li v-for="error in errors">
+          {{ error }}
+        </li>
+      </div>
     </div>
     <md-bottom-bar>
       <md-button class="primary" type="submit" @click="registerUser()">Register</md-button>
@@ -18,8 +22,7 @@
 
 <script>
 import gql from 'graphql-tag'
-import config from './../../../config'
-import router from '../../router'
+import config from './../../../config/client'
 
 const log = console.log
 
@@ -40,9 +43,9 @@ export default {
   data () {
     return {
       showModal: false,
-      registerEmail: undefined,
-      registerPassword: undefined,
-      errors: undefined
+      email: '',
+      password: '',
+      errors: []
     }
   },
   apollo: {
@@ -73,8 +76,8 @@ export default {
       log('registerUser')
       // register using Apollo GraphQL mutation on User model in data store
       this.register({
-        username: this.registerEmail,
-        password: this.registerPassword
+        username: this.email,
+        password: this.password
       }).then((data) => {
         log('success', data)
         if (data.errors) {
@@ -84,22 +87,10 @@ export default {
         // save token, id in local storage
         localStorage.setItem('token', data.createUser.token)
         localStorage.setItem('userId', data.createUser.changedUser.id)
-
-        // redirect to home
-        router.push({name: 'home'});
       }).catch((error) => {
         log('error', error)
         this.error = error;
       })
-    },
-
-    emailChanged(e) {
-      log('emailChanged', e)
-      this.registerEmail = e.target.value
-    },
-    passwordChanged(e) {
-      log('passwordChanged', e)
-      this.registerPassword = e.target.value
     }
   }
 }

@@ -3,12 +3,16 @@
     <span class="md-headline">Login Here!</span>
     <div class="form">
       <md-input-container>
-        <md-input type="email" placeholder="Email" @change="emailChange()" />
+        <md-input type="email" placeholder="Email" v-model="email" />
       </md-input-container>
       <md-input-container>
-        <md-input id="password" type="password" placeholder="Password" @change="passwordChange()" />
+        <md-input id="password" type="password" placeholder="Password" v-model="password" />
       </md-input-container>
-      <div class="errors">{{ errors }}</div>
+      <div class="errors">
+        <li v-for="error in errors">
+          {{ error }}
+        </li>
+      </div>
     </div>
     <md-bottom-bar>
       <md-button class="primary" type="submit" @click="loginUser()">Login</button>
@@ -18,8 +22,7 @@
 
 <script>
 import gql from 'graphql-tag'
-import config from './../../../config'
-import router from '../../router'
+import config from './../../../config/client'
 
 const log = console.log
 
@@ -37,9 +40,9 @@ export default {
   data () {
     return {
       showModal: false,
-      loginEmail: undefined,
-      loginPassword: undefined,
-      errors: undefined
+      email: '',
+      password: '',
+      errors: []
     }
   },
   apollo: {
@@ -69,20 +72,12 @@ export default {
       log('open')
       this.showModal = true
     },
-
-    emailChange(e) {
-      this.loginEmail = e.target.value
-    },
-    passwordChange(e) {
-      this.loginPassword = e.target.value
-    },
-
     loginUser() {
       log('loginUser')
 
       this.login({
-        username: this.loginEmail,
-        password: this.loginPassword
+        username: this.email,
+        password: this.password
       }).then((data) => {
         log('login response', data)
         const errors = data.errors
@@ -95,7 +90,6 @@ export default {
         log('update localStorage', loginUser)
         localStorage.setItem('token', loginUser.token)
         localStorage.setItem('userId', loginUser.id)
-        router.push({name: 'home'})
       }).catch((error) => {
         this.errors = [error]
       });

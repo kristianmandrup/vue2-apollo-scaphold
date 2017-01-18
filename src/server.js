@@ -1,12 +1,11 @@
 import path from 'path'
 import WebpackDevServer from 'webpack-dev-server'
 import express from 'express'
-import config from './config'
+import config from './config/client'
 
 const APP_PORT = 3001
 
-var compiler = require('./compiler')
-
+var compiler = require('./config/webpack')
 let contentBase = 'src/'
 if (process.env.NODE_ENV === 'production') {
   contentBase = 'lib/'

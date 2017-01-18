@@ -1,19 +1,14 @@
 <template>
   <div>
     <aheader />
-    <router-view />
-    <afooter />
   </div>
 </template>
 
 <script>
 import gql from 'graphql-tag'
-import client from '../../../apollo';
+import client from '../../client';
 import { createFragment } from 'apollo-client';
-import config from '../../../config';
-import router from '../../router';
-
-import gql from 'graphql-tag'
+import config from '../../../config/client';
 
 const FragmentDoc = gql`
 fragment UserFragment on User {
@@ -32,7 +27,6 @@ const userQuery = gql`
 
 // load components
 import Header from './Header.vue';
-import Footer from './Footer.vue';
 
 function createNewUsername () {
   return 'new-user'
@@ -81,8 +75,7 @@ const createUserQL = (userData) => {
 export default {
   // register local components
   components: {
-    'aheader': Header,
-    'afooter': Footer
+    'aheader': Header
   },
   props: [],
 
@@ -162,9 +155,6 @@ export default {
       // update component state
       this.user = getUser,
       this.notLoading()
-
-      // redirect to home
-      router.push({name: 'home'});
     },
 
     subscribeToUser (id) {
