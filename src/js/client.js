@@ -1,19 +1,10 @@
 import ApolloClient, { createNetworkInterface } from 'apollo-client'
-// import { Client } from 'subscriptions-transport-ws'
-// import { addGraphQLSubscriptions } from 'vue-apollo';
 import config from '../config/client'
 
 const networkInterface = createNetworkInterface({
   uri: config.scapholdUrl,
   transportBatching: true
 })
-
-// const wsClient = new Client('wss://us-west-2.api.scaphold.io/graphql/react-apollo-starter-kit')
-
-// const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
-//   networkInterface,
-//   wsClient,
-// )
 
 networkInterface.use([{
   applyMiddleware (req, next) {
@@ -28,7 +19,7 @@ networkInterface.use([{
 }])
 
 const client = new ApolloClient({
-  networkInterface // : networkInterfaceWithSubscriptions
+  networkInterface
 })
 
 export default client

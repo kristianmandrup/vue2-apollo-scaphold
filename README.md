@@ -1,30 +1,32 @@
-# Vue2 Apollo boilerplate
+# Vue2 Apollo Scaphold starter kit
 
 Based on [React apollo starter kit](https://github.com/scaphold-io/react-apollo-starter-kit)
 
-Fork this boilerplate code to get started with GraphQL, and Apollo with either:
+Fork this boilerplate code to get started with GraphQL, and Apollo with [Scaphold.io](https://scaphold.io)
 
 **Quickstart:**
 
-1) Go to Scaphold.io (https://scaphold.io).
+1) Go to [Scaphold.io](https://scaphold.io)
 
 2) Create an account and dataset.
 
 3) Change the URL in the API manager (config.js) in the boilerplate to point to your unique Scaphold.io API URL.
 
-5) Install dependencies: ```npm install```
+5) Install dependencies: `npm install`
 
-4) Run with: ```npm start```
+4) Run with: `npm start`
 
 Open browser at: `localhost:3001`
 
+Please open the browser console and monitor the logging there to see what goes on under the covers...
+
 **Deployment:**
 
-*Note: For development, you only need to run ```npm start```*
+*Note: For development, you only need to run `npm start`*
 
-1) Run ```npm run build``` to transpile ES6 code from the src/ directory to JavaScript in the lib/ directory.
+1) Run `npm run build` to transpile ES6 code from the src/ directory to JavaScript in the lib/ directory.
 
-2) Set the environment variable ```process.env.NODE_ENV = 'production'``` to let server.js know to run the code in the lib/ directory.
+2) Set the environment variable `process.env.NODE_ENV = 'production'` to let server.js know to run the code in the lib/ directory.
 
 *scaphold.io*
 - [scaphold.io quickstart](https://scaphold.io/docs/#quick-start-tutorial)
@@ -156,14 +158,14 @@ There is also a `subscribeToUser` method used to subscribe to new users (via Ret
 
     "RethinkDB pushes JSON to your apps in realtime."
 
-Currently it polls every 60000 milliseconds (ie. every minute: `pollInterval: 60000`)
+Currently it polls every 30 seconds (ie. every minute: `pollInterval: 60000` ms)
 
 ```js
 subscribeToUser(id) {
-  const observable = client.watchQuery({
+  const observable = this.$apollo.watchQuery({
     query: userQuery,
     fragments: createFragment(FragmentDoc),
-    pollInterval: 60000,
+    pollInterval: 30000,
     forceFetch: true,
     variables: {
       id,
@@ -176,14 +178,7 @@ subscribeToUser(id) {
       ...
 
       // save in local storage
-      localStorage.setItem('currentUsername', result.data.getUser.username);
-
       // update component state
-      that.user = result.data.getUser,
-      that.loading = false,
-
-      // redirect to home
-      router.push({name: 'home'});
     }
   })
 }
@@ -211,7 +206,7 @@ Contains an apollo mutation method to perform a `loginWithData`
 ```js
   methods: {
     login(ctx) {
-      return this.$apollo.mutate(mutations.LoginWithData(ctx))
+      return this.$apollo.mutate(LoginQuery)
     },
     ...
   }
@@ -223,15 +218,15 @@ On login success (ie. no `errors` in returned `data`), it stores `token` and `id
 ```js
 loginUser() {
   this.login({
-    username: this.loginEmail,
-    password: this.loginPassword
+    username: this.email,
+    password: this.password
   }).then(({ data }) => {
     if (!data.errors) {
       localStorage.setItem('token', data.loginUser.token);
       localStorage.setItem('userId', data.loginUser.id);
-      router.push({name: 'home'});
+      // ...
 ```
 
 ## License
 
-For you pleasure ;)
+MIT For you pleasure ;)

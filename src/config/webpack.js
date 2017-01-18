@@ -12,7 +12,7 @@ import webpack from 'webpack'
 
 const config = {
   entry: {
-    vue: path.resolve(__dirname, '../js', 'vue', 'app.js')
+    vue: path.resolve(__dirname, '../js', 'app.js')
   },
   module: {
     rules: [

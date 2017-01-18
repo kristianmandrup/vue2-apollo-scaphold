@@ -6,9 +6,9 @@
 
 <script>
 import gql from 'graphql-tag'
-import client from '../../client';
+import client from '../client';
 import { createFragment } from 'apollo-client';
-import config from '../../../config/client';
+import config from '../../config/client';
 
 const FragmentDoc = gql`
 fragment UserFragment on User {

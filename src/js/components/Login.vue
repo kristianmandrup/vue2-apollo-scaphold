@@ -22,7 +22,7 @@
 
 <script>
 import gql from 'graphql-tag'
-import config from './../../../config/client'
+import config from '../../config/client'
 
 const log = console.log
 

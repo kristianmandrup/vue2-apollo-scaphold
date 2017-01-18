@@ -5,7 +5,7 @@ import VueApollo from 'vue-apollo'
 // https://www.npmjs.com/package/vue-awesome
 // import Icon from 'vue-awesome/components/Icon.vue'
 // import 'vue-awesome/icons/heart'
-import client from '../client' // apollo client plugin for vue
+import client from './client' // apollo client plugin for vue
 import App from './components/App.vue'
 
 Vue.config.debug = true
