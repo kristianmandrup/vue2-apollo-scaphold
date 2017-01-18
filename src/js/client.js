@@ -8,7 +8,7 @@ const networkInterface = createNetworkInterface({
   transportBatching: true
 })
 
-// const wsClient = new Client('ws://localhost:3001')
+// const wsClient = new Client('wss://us-west-2.api.scaphold.io/graphql/react-apollo-starter-kit')
 
 // const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
 //   networkInterface,
