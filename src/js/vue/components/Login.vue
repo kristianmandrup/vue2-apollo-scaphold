@@ -46,7 +46,8 @@ export default {
     }
   },
   apollo: {
-    // apollo queries/mutations here
+    // apollo queries and subscriptions here
+    // loginUserMutation
   },
   methods: {
     // called by loginUser() below
@@ -78,7 +79,7 @@ export default {
       this.login({
         username: this.email,
         password: this.password
-      }).then((data) => {
+      }).then(({data}) => {
         log('login response', data)
         const errors = data.errors
         if (errors) {
@@ -86,10 +87,10 @@ export default {
           this.errors = errors;
           return
         }
-        const loginUser = data.loginUser;
-        log('update localStorage', loginUser)
-        localStorage.setItem('token', loginUser.token)
-        localStorage.setItem('userId', loginUser.id)
+        const user = data.loginUser;
+        log('update localStorage', user)
+        localStorage.setItem('token', user.token)
+        localStorage.setItem('userId', user.id)
       }).catch((error) => {
         this.errors = [error]
       });

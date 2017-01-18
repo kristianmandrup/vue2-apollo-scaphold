@@ -19,10 +19,13 @@ Vue.material.setCurrentTheme('default')
 
 // Install the vue-apollo plugin and use the apollo client
 Vue.use(VueApollo, {
-  client
+  apolloClient: client
 })
 
 new Vue({
-  ...App
+  ...App,
+  apollo: {
+    // Apollo specific options
+  }
 }).$mount('#app')
 

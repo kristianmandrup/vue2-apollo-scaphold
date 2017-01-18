@@ -65,7 +65,9 @@ export default {
 
       const mutationQL = {
         mutation: createUserMutation,
-        variables: userData
+        variables: {
+          data: userData
+        }
       }
       log('mutationQL', mutationQL)
 
@@ -78,18 +80,21 @@ export default {
       this.register({
         username: this.email,
         password: this.password
-      }).then((data) => {
+      }).then(({data}) => {
         log('success', data)
         if (data.errors) {
           this.error = data.errors
           return
         }
         // save token, id in local storage
-        localStorage.setItem('token', data.createUser.token)
-        localStorage.setItem('userId', data.createUser.changedUser.id)
+        const user = data.createUser
+        log('user', user)
+
+        localStorage.setItem('token', user.token);
+        localStorage.setItem('user', JSON.stringify(user.changedUser));
       }).catch((error) => {
         log('error', error)
-        this.error = error;
+        this.errors = [error];
       })
     }
   }

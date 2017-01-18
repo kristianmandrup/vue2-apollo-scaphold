@@ -82,6 +82,10 @@ export default {
   // access queries
   // this.$apollo.queries.<name>
   apollo: {
+    // user: {
+    //   query: userQuery
+    // }
+
     // apollo queries/mutations here
     subscribe: {
       // subscriptions here (see below)
@@ -159,7 +163,7 @@ export default {
 
     subscribeToUser (id) {
       log('subscribeToUser:', id)
-      const observable = client.watchQuery({
+      const observable = this.$apollo.watchQuery({
         query: userQuery,
         fragments: createFragment(FragmentDoc),
         pollInterval: 60000,
