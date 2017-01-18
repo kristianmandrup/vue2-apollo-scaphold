@@ -1,6 +1,6 @@
 import ApolloClient, { createNetworkInterface } from 'apollo-client'
-import { Client } from 'subscriptions-transport-ws'
-import { addGraphQLSubscriptions } from 'vue-apollo';
+// import { Client } from 'subscriptions-transport-ws'
+// import { addGraphQLSubscriptions } from 'vue-apollo';
 import config from '../config/client'
 
 const networkInterface = createNetworkInterface({
@@ -8,12 +8,12 @@ const networkInterface = createNetworkInterface({
   transportBatching: true
 })
 
-const wsClient = new Client('ws://localhost:3030')
+// const wsClient = new Client('ws://localhost:3001')
 
-const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
-  networkInterface,
-  wsClient,
-)
+// const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
+//   networkInterface,
+//   wsClient,
+// )
 
 networkInterface.use([{
   applyMiddleware (req, next) {
@@ -28,7 +28,7 @@ networkInterface.use([{
 }])
 
 const client = new ApolloClient({
-  networkInterface: networkInterfaceWithSubscriptions
+  networkInterface // : networkInterfaceWithSubscriptions
 })
 
 export default client
