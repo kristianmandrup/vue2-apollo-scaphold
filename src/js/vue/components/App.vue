@@ -34,44 +34,6 @@ function createNewUsername () {
 
 const log = console.log
 
-const createUserQuery = gql `
-  mutation CreateUserQuery($user: CreateUserInput!){
-    createUser(input: $user) {
-      token
-      changedUser {
-        id
-        username
-      }
-    }
-  }
-`
-
-// See https://github.com/Akryum/vue-apollo#mutations
-const createUserQL = (userData) => {
-  return {
-    mutation: createUserQuery,
-    variables: {
-      user: userData
-    },
-    updateQueries: {
-      createUser: (previousQueryResult, { mutationResult }) => {
-        return mutationResult
-      }
-    },
-    // Optimistic UI
-    // Will be treated as a 'fake' result as soon as the request is made
-    // so that the UI can react quickly and the user be happy
-    optimisticResponse: {
-      __typename: 'Mutation',
-      addTag: {
-        __typename: 'Tag',
-        id: -1,
-        label: newTag,
-      },
-    }
-  }
-}
-
 export default {
   // register local components
   components: {
@@ -100,39 +62,28 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      const token = localStorage.getItem('token');
-      const userId = localStorage.getItem('userId');
+      log('mounted: trying to subscribe')
 
-      log('app mounted', token, userId)
+      const token = localStorage.getItem('token')
+      const user = JSON.parse(localStorage.getItem('user'))
+      const userId = user ? user.id : null
+
+      log('your user data in localstorage', {token, userId})
 
       // If we are logged in subscribe to the user and render the app.
       // We are not logged in so stop loading and render the landing page.
-      return token && userId ? this.subscribeToUser(userId) : this.notLoading()
+      if (token && userId) {
+        return this.subscribeToUser(userId)
+      } else {
+        log('missing token and userId in order to subscribe to user')
+        this.notLoading()
+      }
     })
   },
 
   methods: {
     notLoading() {
       this.loading = false
-    },
-    createUser() {
-      log('create User')
-      // We save the user input in case of an error
-      // const newUser = this.newUser;
-      // We clear it early to give the UI a snappy feel
-      this.newUser = '';
-
-      const mutationQL = createUserQL({
-        username: this.username,
-        password: this.password
-      })
-
-      log('mutationQL', mutationQL)
-
-      // Call to the graphql mutation
-      this.$apollo.mutate(mutationQL)
-      .then(data => console.log(data))
-      .catch(error => console.error(error))
     },
 
     unauthed(result) {
@@ -148,43 +99,48 @@ export default {
 
       localStorage.clear();
       // update component state
-      this.user = result.data.getUser;
+      this.user = result.data.getUser
       this.notLoading()
     },
 
     onSubscribeData (result) {
       let getUser = result.data.getUser
-      localStorage.setItem('currentUsername', getUser.username);
+      localStorage.setItem('currentUsername', getUser.username)
 
       // update component state
       this.user = getUser,
       this.notLoading()
     },
 
+    // poll every 30 secs
     subscribeToUser (id) {
       log('subscribeToUser:', id)
       const observable = this.$apollo.watchQuery({
         query: userQuery,
         fragments: createFragment(FragmentDoc),
-        pollInterval: 60000,
+        pollInterval: 30 * 1000,
         forceFetch: true,
         variables: {
           id,
         },
       })
 
+      const that = this
+
       const subscription = observable.subscribe({
         next(result) {
-          let handler = result && result.errors ? this.onSubscribeErrors : this.onSubscribeData
+          log('subscribe next:', result)
+          let handler = result && result.errors ? that.onSubscribeErrors : that.onSubscribeData
           handler(result)
         },
         error(error) {
+          log('subscribe error:', error)
           console.log(`Error subscribing to user: ${error.toString()}`)
-          this.notLoading()
+          that.notLoading()
         },
         // Network error, etc.
         complete() {
-          console.log(`Subscription complete`)
+          log('Subscription complete')
         }
       })
 

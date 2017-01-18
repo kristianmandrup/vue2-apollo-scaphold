@@ -29,8 +29,11 @@ const log = console.log
 const loginUserMutation = gql `
   mutation LoginUserMutation($data: LoginUserInput!) {
     loginUser(input: $data) {
-      id,
       token
+      user {
+        id
+        username
+      }
     }
   }
 `
@@ -53,12 +56,14 @@ export default {
     // called by loginUser() below
     // pass login ctx:
     // - username, passsord
-    login(ctx) {
-      log('login', ctx)
+    login(user) {
+      log('login', user)
 
       const mutationQL = {
         mutation: loginUserMutation,
-        variables: ctx
+        variables: {
+          data: user
+        }
       }
       log('mutationQL', mutationQL)
 
@@ -69,12 +74,22 @@ export default {
       log('close')
       this.showModal = false
     },
+
     open() {
       log('open')
       this.showModal = true
     },
+
+    validateInput() {
+      return this.email && this.email.length && this.password && this.password.length
+    },
+
     loginUser() {
       log('loginUser')
+      if (!this.validateInput()) {
+        this.errors = ['invalid login: email and password must not be empty']
+        return
+      }
 
       this.login({
         username: this.email,
@@ -90,10 +105,10 @@ export default {
         const user = data.loginUser;
         log('update localStorage', user)
         localStorage.setItem('token', user.token)
-        localStorage.setItem('userId', user.id)
+        localStorage.setItem('userId', JSON.stringify(user))
       }).catch((error) => {
         this.errors = [error]
-      });
+      })
     }
   }
 }
