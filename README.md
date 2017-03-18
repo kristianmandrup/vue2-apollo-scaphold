@@ -26,7 +26,12 @@ It should open the login screen. Try entering some login credentials and it shou
 { "graphQLErrors": [ { "message": "Could not find a user with that username", "locations": [ { "line": 2, "column": 3 } ], "path": [ "loginUser" ], "name": "GraphQLError" } ], "message": "GraphQL error: Could not find a user with that username" }
 ```
 
-Showing that it really works! Play from there ;)
+Showing that it really works!
+
+Now go to the *register* tab and register with a username and password. Then go back to *login* tab and
+login with those credentials and it should display *Login successful :)*
+
+It really works! :D
 
 **Deployment:**
 

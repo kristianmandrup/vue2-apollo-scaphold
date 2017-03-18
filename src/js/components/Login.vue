@@ -8,8 +8,9 @@
       <md-input-container>
         <md-input id="password" type="password" placeholder="Password" v-model="password" />
       </md-input-container>
-      <div class="errors">
-        <li v-for="error in errors">
+      <div class="success" v-show="success">{{ success }}</div>
+      <div class="errors" v-show="errors">
+        <li class="error" v-for="error in errors">
           {{ error }}
         </li>
       </div>
@@ -45,7 +46,8 @@ export default {
       showModal: false,
       email: '',
       password: '',
-      errors: []
+      errors: [],
+      success: ''
     }
   },
   apollo: {
@@ -65,7 +67,7 @@ export default {
           data: user
         }
       }
-      log('mutationQL', mutationQL)
+      log('login mutationQL', mutationQL)
 
       return this.$apollo.mutate(mutationQL)
     },
@@ -106,7 +108,11 @@ export default {
         log('update localStorage', user)
         localStorage.setItem('token', user.token)
         localStorage.setItem('userId', JSON.stringify(user))
+        this.success = 'Login successful :)'
+        this.errors = []
       }).catch((error) => {
+        log('login catch error', error)
+        this.success = ''
         this.errors = [error]
       })
     }
