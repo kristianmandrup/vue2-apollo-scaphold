@@ -20,6 +20,14 @@ Open browser at: `localhost:3001`
 
 Please open the browser console and monitor the logging there to see what goes on under the covers...
 
+It should open the login screen. Try entering some login credentials and it should respond with:
+
+```
+{ "graphQLErrors": [ { "message": "Could not find a user with that username", "locations": [ { "line": 2, "column": 3 } ], "path": [ "loginUser" ], "name": "GraphQLError" } ], "message": "GraphQL error: Could not find a user with that username" }
+```
+
+Showing that it really works! Play from there ;)
+
 **Deployment:**
 
 *Note: For development, you only need to run `npm start`*
@@ -32,12 +40,7 @@ Please open the browser console and monitor the logging there to see what goes o
 - [scaphold.io quickstart](https://scaphold.io/docs/#quick-start-tutorial)
 - [scaphold.io slack channel](https://scaphold.slack.com)
 
-- Vue 2 *Work in progress (WIP)*
-
 ### Vue2
-
-Not quite working yet. Src code can be found in `src/js/vue` folder.
-We have not tried to port the `Description` or `Hero` components as they are static and not interesting.
 
 The main points of interest are the `vue-apollo` integrations and GraphQL queries.
 
@@ -69,7 +72,7 @@ The main points of interest are the `vue-apollo` integrations and GraphQL querie
 - [optics analytics](http://www.apollodata.com/optics)
 
 
-The `vue-apollo` author recommends defining the apollo queries directly on the component using the special `apollo` key:
+The `vue-apollo` author recommends defining the *apollo queries* directly on the component using the special `apollo` key:
 
 ```js
   // Apollo GraphQL
@@ -115,9 +118,15 @@ export default {
 };
 ```
 
-Please refactor the current Vue2 components to follow best practices and work correctly!
+Please refactor the current Vue2 components to follow best practices!
 
 Also have a look at: [vue-apollo: hello world example](https://github.com/Akryum/frontpage-vue-app)
+
+[Using Vuex with Apollo](https://github.com/Akryum/vue-apollo/issues/7#issuecomment-285974766)
+
+There is now a [vue-supply](https://github.com/Akryum/vue-supply) module which makes it easier to supply Vuex with external data, such as via Apollo.
+
+"Efficiently managing reactive and living data from an external source can become difficult in a large app or when using vuex. With vue-supply, you can easily consume data and automatically activate or deactivate subscriptions."
 
 #### Apollo GraphQL mutations
 
