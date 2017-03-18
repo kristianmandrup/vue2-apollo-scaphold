@@ -15,7 +15,7 @@
       </div>
     </div>
     <md-bottom-bar>
-      <md-button class="primary" type="submit" @click="loginUser()">Login</button>
+      <md-button class="primary" type="submit" @click="loginUser()">Login</md-button>
     </md-bottom-bar>
   </md-card>
 </template>
