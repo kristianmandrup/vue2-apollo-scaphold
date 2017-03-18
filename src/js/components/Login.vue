@@ -8,12 +8,12 @@
       <md-input-container>
         <md-input id="password" type="password" placeholder="Password" v-model="password" />
       </md-input-container>
-      <div class="success" v-show="success">{{ success }}</div>
-      <div class="errors" v-show="errors">
-        <li class="error" v-for="error in errors">
+      <div class="success md-subheading" style="background: green" v-if="success">{{ success }}</div>
+      <md-list class="errors" v-if="errors.length > 0">
+        <md-list-item class="errors md-warn" v-for="error in errors">
           {{ error }}
-        </li>
-      </div>
+        </md-list-item>
+      </md-list>
     </div>
     <md-bottom-bar>
       <md-button class="primary" type="submit" @click="loginUser()">Login</md-button>
@@ -86,6 +86,17 @@ export default {
       return this.email && this.email.length && this.password && this.password.length
     },
 
+    parseErrors(errs) {
+      let errors = []
+      if (errs.graphQLErrors) {
+        errs.graphQLErrors.map(error => errors.push(error.message))
+      } else if (errs.message) {
+        errors.push(errs.message)
+      }
+      log('parsed errors', errors)
+      return errors
+    },
+
     loginUser() {
       log('loginUser')
       if (!this.validateInput()) {
@@ -101,7 +112,7 @@ export default {
         const errors = data.errors
         if (errors) {
           log('errors', errors)
-          this.errors = errors;
+          this.errors = this.parseErrors(errors)
           return
         }
         const user = data.loginUser;
@@ -113,7 +124,7 @@ export default {
       }).catch((error) => {
         log('login catch error', error)
         this.success = ''
-        this.errors = [error]
+        this.errors = this.parseErrors(error)
       })
     }
   }
@@ -124,6 +135,11 @@ export default {
 .errors {
   text-align: 'center';
   color: 'red';
+}
+
+.success {
+  text-align: 'center';
+  color: 'green';
 }
 </style>
 

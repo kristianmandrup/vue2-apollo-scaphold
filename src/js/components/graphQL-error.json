@@ -1,0 +1,12 @@
+{
+  "graphQLErrors": [{
+    "message": "Could not find a user with that username",
+    "locations": [{
+      "line": 2,
+      "column": 3
+    }],
+    "path": ["loginUser"],
+    "name": "GraphQLError"
+  }],
+  "message": "GraphQL error: Could not find a user with that username"
+}
