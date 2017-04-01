@@ -1,5 +1,7 @@
 # Vue2 Apollo Scaphold starter kit
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/kristianmandrup/vue2-apollo-scaphold.svg)](https://greenkeeper.io/)
+
 Based on [React apollo starter kit](https://github.com/scaphold-io/react-apollo-starter-kit)
 
 Fork this boilerplate code to get started with GraphQL, and Apollo with [Scaphold.io](https://scaphold.io)
